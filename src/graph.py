@@ -2,6 +2,20 @@ from PyQt5 import QtWidgets as QtW
 from PyQt5 import QtCore
 import NodeGraphQt as NGQt
 
+# Import stages for the Stage selection dropdown
+from configPanel import DISEASE_STAGES
+
+# Categories for JUNE simulator logic
+JUNE_CATEGORIES = [
+    "none",
+    "stay_at_home_stage",
+    "fatality_stage",
+    "recovered_stage",
+    "hospitalised_stage",
+    "intensive_care_stage",
+    "severe_symptoms_stay_at_home_stage",
+]
+
 
 class DefaultLowestStage(NGQt.BaseNode):
     __identifier__ = "symptoms"
@@ -12,6 +26,10 @@ class DefaultLowestStage(NGQt.BaseNode):
         self.set_name("Lowest Stage")
         self.set_color(40, 150, 40)
         self.add_output("Completion Time")
+        # Symptom Tag selection
+        self.add_combo_menu("tag_name", "Stage", items=DISEASE_STAGES)
+        # JUNE Logic Category selection
+        self.add_combo_menu("june_category", "JUNE Category", items=JUNE_CATEGORIES)
         self.add_text_input("tag", "Value", "0")
 
 
@@ -25,6 +43,8 @@ class TransitionNode(NGQt.BaseNode):
         self.set_color(40, 150, 40)
         self.add_input("Previous", multi_input=True)
         self.add_output("Completion Time")
+        self.add_combo_menu("tag_name", "Stage", items=DISEASE_STAGES)
+        self.add_combo_menu("june_category", "JUNE Category", items=JUNE_CATEGORIES)
         self.add_text_input("tag", "Value", "0")
 
 
@@ -37,6 +57,8 @@ class TerminalStage(NGQt.BaseNode):
         self.set_name("Terminal Stage")
         self.set_color(180, 40, 40)
         self.add_input("Previous", multi_input=True)
+        self.add_combo_menu("tag_name", "Stage", items=DISEASE_STAGES)
+        self.add_combo_menu("june_category", "JUNE Category", items=JUNE_CATEGORIES)
         self.add_text_input("tag", "Value", "0")
 
 
@@ -133,7 +155,6 @@ class NodeGraphWidget(QtW.QWidget):
         """
         Breaks the direct connection and inserts a TimeNode.
         """
-        # 1. Clear selection to prevent rendering artifacts
         self.graph.clear_selection()
 
         source_node = source_port.node()
@@ -143,7 +164,6 @@ class NodeGraphWidget(QtW.QWidget):
         source_port.disconnect_from(target_port)
 
         # 3. Create new node
-        # push_undo=True allows user to CTRL+Z the auto-insertion
         time_node = self.graph.create_node(
             "transitions.UniversalTimeNode", push_undo=True
         )
@@ -159,7 +179,6 @@ class NodeGraphWidget(QtW.QWidget):
         source_port.connect_to(time_node.input(0), push_undo=True)
         time_node.output(0).connect_to(target_port, push_undo=True)
 
-        # 6. Force viewer update to clear any ghost lines
         self.graph.viewer().update()
 
         # 7. Initial visibility check
@@ -198,7 +217,6 @@ class NodeGraphWidget(QtW.QWidget):
                 should_show = field in visible_fields
                 widget_wrapper.setVisible(should_show)
 
-                # FIXED: Call widget() because it is a method
                 if hasattr(widget_wrapper, "widget"):
                     try:
                         inner_widget = widget_wrapper.widget()
@@ -207,7 +225,6 @@ class NodeGraphWidget(QtW.QWidget):
                     except Exception:
                         pass
 
-                # Hide label
                 if hasattr(widget_wrapper, "label_widget"):
                     widget_wrapper.label_widget.setVisible(should_show)
                 elif hasattr(widget_wrapper, "label"):

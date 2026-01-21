@@ -35,6 +35,11 @@ class MainWindow(QtW.QMainWindow):
         load_action.triggered.connect(self.on_import_yaml)
         file_menu.addAction(load_action)
 
+        # ADDED: Action to export YAML
+        export_yaml_action = QtW.QAction("Export YAML...", self)
+        export_yaml_action.triggered.connect(self.on_export_yaml)
+        file_menu.addAction(export_yaml_action)
+
         # ADDED: Action to import NodeGraph JSON session
         import_json_action = QtW.QAction("Import JSON...", self)
         import_json_action.triggered.connect(self.on_import_json)
@@ -63,6 +68,16 @@ class MainWindow(QtW.QMainWindow):
             graph_widget = self.right_panel
 
             yamlLoader.load_config(file_path, config_panel, graph_widget)
+
+    # ADDED: Method to handle YAML export
+    def on_export_yaml(self):
+        file_path, _ = QtW.QFileDialog.getSaveFileName(
+            self, "Export Config File", "", "YAML Files (*.yaml *.yml)"
+        )
+        if file_path:
+            config_panel = self.splitter.widget(0)
+            graph_widget = self.right_panel
+            yamlLoader.save_config(file_path, config_panel, graph_widget)
 
     # ADDED: Method to import NodeGraph JSON session
     def on_import_json(self):

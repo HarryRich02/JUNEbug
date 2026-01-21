@@ -1,0 +1,1623 @@
+{
+    "graph": {
+        "layout_direction": 0,
+        "acyclic": true,
+        "pipe_collision": false,
+        "pipe_slicing": true,
+        "pipe_style": 1,
+        "accept_connection_types": "{}",
+        "reject_connection_types": "{}"
+    },
+    "nodes": {
+        "0x241d6746900": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "mild",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                -2543.0,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "mild",
+                "june_category": "stay_at_home_stage",
+                "tag": "2"
+            }
+        },
+        "0x241d66e39d0": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "asymptomatic",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                -2543.0,
+                -954.3
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "asymptomatic",
+                "june_category": "none",
+                "tag": "1"
+            }
+        },
+        "0x241d66e3890": {
+            "type_": "symptoms.DefaultLowestStage",
+            "icon": null,
+            "name": "exposed",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 386.0,
+            "height": 193.0,
+            "pos": [
+                -3819.5,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "exposed",
+                "june_category": "none",
+                "tag": "0"
+            }
+        },
+        "0x241d66d9cd0": {
+            "type_": "symptoms.TerminalStage",
+            "icon": null,
+            "name": "recovered",
+            "color": [
+                180,
+                40,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 357.0,
+            "height": 193.0,
+            "pos": [
+                3924.5,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "recovered",
+                "june_category": "recovered_stage",
+                "tag": "-2"
+            }
+        },
+        "0x241d66d9e00": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "intensive_care",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                86.0,
+                -954.3
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "intensive_care",
+                "june_category": "intensive_care_stage",
+                "tag": "5"
+            }
+        },
+        "0x241d66d9f30": {
+            "type_": "symptoms.TerminalStage",
+            "icon": null,
+            "name": "dead_home",
+            "color": [
+                180,
+                40,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 364.0,
+            "height": 193.0,
+            "pos": [
+                86.0,
+                -355.29999999999995
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "dead_home",
+                "june_category": "fatality_stage",
+                "tag": "6"
+            }
+        },
+        "0x241d66d9940": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "severe",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                -1228.5,
+                -954.3
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "severe",
+                "june_category": "severe_symptoms_stay_at_home_stage",
+                "tag": "3"
+            }
+        },
+        "0x241d66da060": {
+            "type_": "symptoms.TerminalStage",
+            "icon": null,
+            "name": "dead_icu",
+            "color": [
+                180,
+                40,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 351.0,
+            "height": 193.0,
+            "pos": [
+                1400.5,
+                -954.3
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "dead_icu",
+                "june_category": "fatality_stage",
+                "tag": "8"
+            }
+        },
+        "0x241d66da2c0": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "hospitalised",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                -1228.5,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "hospitalised",
+                "june_category": "hospitalised_stage",
+                "tag": "4"
+            }
+        },
+        "0x241d66da520": {
+            "type_": "symptoms.TerminalStage",
+            "icon": null,
+            "name": "dead_hospital",
+            "color": [
+                180,
+                40,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 375.0,
+            "height": 193.0,
+            "pos": [
+                86.0,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "dead_hospital",
+                "june_category": "fatality_stage",
+                "tag": "7"
+            }
+        },
+        "0x241d66da650": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "exposed -> asymptomatic",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 310.0,
+            "height": 302.2,
+            "pos": [
+                -3245.5,
+                -790.5
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "beta",
+                "Val": "0.39",
+                "scale": "39.8",
+                "a": "2.29",
+                "b": "19.05",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66da780": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "asymptomatic -> recovered",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 318.0,
+            "height": 138.4,
+            "pos": [
+                -1931.0,
+                299.9000000000003
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "14",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66da8b0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "exposed -> mild",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 281.0,
+            "height": 302.2,
+            "pos": [
+                -3245.5,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "beta",
+                "Val": "0.39",
+                "scale": "39.8",
+                "a": "2.29",
+                "b": "19.05",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66dab10": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "mild -> recovered",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 281.0,
+            "height": 138.4,
+            "pos": [
+                -1931.0,
+                -327.1999999999998
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "20.0",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66dad70": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "mild -> severe",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 281.0,
+            "height": 247.60000000000002,
+            "pos": [
+                -1931.0,
+                -872.3999999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "lognormal",
+                "Val": "0.0",
+                "scale": "5.727",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.8325"
+            }
+        },
+        "0x241d66daea0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "severe -> recovered",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 285.0,
+            "height": 138.4,
+            "pos": [
+                -616.5,
+                626.7
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "20.0",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66dafd0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "mild -> hospitalised",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 281.0,
+            "height": 247.60000000000002,
+            "pos": [
+                -1931.0,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "lognormal",
+                "Val": "0.0",
+                "scale": "5.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.55"
+            }
+        },
+        "0x241d66db100": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "mild 2",
+            "color": [
+                40,
+                150,
+                250,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                86.0,
+                -654.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "mild",
+                "june_category": "stay_at_home_stage",
+                "tag": "2"
+            }
+        },
+        "0x241d66db230": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "hospitalised -> mild 2",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 286.0,
+            "height": 302.2,
+            "pos": [
+                -616.5,
+                54.200000000000045
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "beta",
+                "Val": "0.05",
+                "scale": "27.1",
+                "a": "1.35",
+                "b": "3.68",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66db360": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "mild 2 -> recovered",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 281.0,
+            "height": 138.4,
+            "pos": [
+                698.0,
+                -218.0
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "8",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66db490": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "hospitalised -> intensive_care",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 329.0,
+            "height": 302.2,
+            "pos": [
+                -616.5,
+                -409.0999999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "exponweib",
+                "Val": "0.0",
+                "scale": "6.8",
+                "a": "0.085",
+                "b": "0.0",
+                "c": "4.14",
+                "s": "0.0"
+            }
+        },
+        "0x241d66db5c0": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "hospitalised 2",
+            "color": [
+                40,
+                150,
+                250,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                1400.5,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "hospitalised",
+                "june_category": "hospitalised_stage",
+                "tag": "4"
+            }
+        },
+        "0x241d66db6f0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "intensive_care -> hospitalised 2",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 338.0,
+            "height": 302.2,
+            "pos": [
+                698.0,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "exponweib",
+                "Val": "0.0",
+                "scale": "12",
+                "a": "1.06",
+                "b": "0.0",
+                "c": "0.89",
+                "s": "0.0"
+            }
+        },
+        "0x241d66db820": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "mild 1",
+            "color": [
+                40,
+                150,
+                250,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 462.0,
+            "height": 193.0,
+            "pos": [
+                2715.0,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "tag_name": "mild",
+                "june_category": "stay_at_home_stage",
+                "tag": "2"
+            }
+        },
+        "0x241d66db950": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "hospitalised 2 -> mild 1",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 295.0,
+            "height": 302.2,
+            "pos": [
+                2012.5,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "exponweib",
+                "Val": "0.0",
+                "scale": "0.41",
+                "a": "15.95",
+                "b": "0.0",
+                "c": "0.4",
+                "s": "0.0"
+            }
+        },
+        "0x241d66dba80": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "mild 1 -> recovered",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 281.0,
+            "height": 138.4,
+            "pos": [
+                3327.0,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "3",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66dbbb0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "severe -> dead_home",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 292.0,
+            "height": 138.4,
+            "pos": [
+                -616.5,
+                1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "3.0",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66dbce0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "hospitalised -> dead_hospital",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 326.0,
+            "height": 302.2,
+            "pos": [
+                -616.5,
+                -1253.8
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "beta",
+                "Val": "0.08",
+                "scale": "12.9",
+                "a": "1.21",
+                "b": "1.97",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x241d66dbe10": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "hospitalised -> intensive_care 1",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 338.0,
+            "height": 247.60000000000002,
+            "pos": [
+                -616.5,
+                -845.0999999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "lognormal",
+                "Val": "0.0",
+                "scale": "0.907",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "1.412"
+            }
+        },
+        "0x241de288050": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "intensive_care -> dead_icu",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": true,
+            "visible": true,
+            "width": 316.0,
+            "height": 302.2,
+            "pos": [
+                698.0,
+                -790.5
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "exponweib",
+                "Val": "0.0",
+                "scale": "9.69",
+                "a": "1.23",
+                "b": "0.0",
+                "c": "1.1",
+                "s": "0.0"
+            }
+        }
+    },
+    "connections": [
+        {
+            "in": [
+                "0x241d6746900",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66da8b0",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d6746900",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66dab10",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d6746900",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66dad70",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d6746900",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66dafd0",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66e39d0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66da650",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66e39d0",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66da780",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66e3890",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66da650",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66e3890",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66da8b0",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9cd0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66da780",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9cd0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66dab10",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9cd0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66daea0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9cd0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66db360",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9cd0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66dba80",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9e00",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66db490",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9e00",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66dbe10",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66d9e00",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66db6f0",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66d9e00",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241de288050",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9f30",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66dbbb0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66d9940",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66dad70",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66d9940",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66daea0",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66d9940",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66dbbb0",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66da060",
+                "Previous"
+            ],
+            "out": [
+                "0x241de288050",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66da2c0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66dafd0",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66da2c0",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66db230",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66da2c0",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66db490",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66da2c0",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66dbce0",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66da2c0",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66dbe10",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66da520",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66dbce0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66db100",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66db230",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66db100",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66db360",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66db5c0",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66db6f0",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66db5c0",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66db950",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x241d66db820",
+                "Previous"
+            ],
+            "out": [
+                "0x241d66db950",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x241d66db820",
+                "Completion Time"
+            ],
+            "in": [
+                "0x241d66dba80",
+                "Symptom"
+            ]
+        }
+    ]
+}
