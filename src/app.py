@@ -1,121 +1,88 @@
-import os, sys
+import os, sys, json
+from typing import Dict, Any
 from PyQt5 import QtWidgets as QtW
 from PyQt5.QtCore import Qt
-
-import graph
-import configPanel
-import yamlLoader
-import json  # Import the json module
+import graph, configPanel, yamlLoader
 
 
 class MainWindow(QtW.QMainWindow):
+    """Main application window coordination."""
+
     def __init__(self):
+        """Initializes UI components."""
         super().__init__()
-        self.setWindowTitle("pandemic-config-gui")
+        self.setWindowTitle("JUNEbug - pandemic-config-gui")
         self.resize(1280, 720)
-
         self.splitter = QtW.QSplitter(Qt.Horizontal)
-
-        left_panel = configPanel.DiseaseConfigWidget()
-
+        self.left_panel = configPanel.DiseaseConfigWidget()
         self.right_panel = graph.NodeGraphWidget()
-
-        left_panel.config_saved.connect(self.handle_config_save)
-
-        self.splitter.addWidget(left_panel)
+        self.left_panel.configSaved.connect(self.handleConfigSave)
+        self.splitter.addWidget(self.left_panel)
         self.splitter.addWidget(self.right_panel)
         self.splitter.setSizes([350, 930])
-
         self.setCentralWidget(self.splitter)
+        self.setupMenus()
 
-        menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu("File")
+    def setupMenus(self) -> None:
+        """Creates the File menu."""
+        menu = self.menuBar().addMenu("File")
+        actions = [
+            ("Import YAML...", self.onImportYaml),
+            ("Export YAML...", self.onExportYaml),
+            ("Import JSON Session...", self.onImportJson),
+        ]
+        for label, func in actions:
+            act = QtW.QAction(label, self)
+            act.triggered.connect(func)
+            menu.addAction(act)
 
-        load_action = QtW.QAction("Import YAML...", self)
-        load_action.triggered.connect(self.on_import_yaml)
-        file_menu.addAction(load_action)
-
-        # ADDED: Action to export YAML
-        export_yaml_action = QtW.QAction("Export YAML...", self)
-        export_yaml_action.triggered.connect(self.on_export_yaml)
-        file_menu.addAction(export_yaml_action)
-
-        # ADDED: Action to import NodeGraph JSON session
-        import_json_action = QtW.QAction("Import JSON...", self)
-        import_json_action.triggered.connect(self.on_import_json)
-        file_menu.addAction(import_json_action)
-
-    def handle_config_save(self, config_data):
-        print("MainWindow received saved config.")
-        graph_data = self.right_panel.graph.serialize_session()
-
-        # Save the serialized nodegraph data to a file
-        output_filename = "nodegraph_session.json"
+    def handleConfigSave(self, data: Dict[str, Any]) -> None:
+        """Serializes session."""
+        session = self.right_panel.graph.serialize_session()
         try:
-            with open(output_filename, "w") as f:
-                # Use json.dump for clean, indented output
-                json.dump(graph_data, f, indent=4)
-            print(f"NodeGraph session successfully saved to: {output_filename}")
+            with open("nodegraph_session.json", "w") as f:
+                json.dump(session, f, indent=4)
         except Exception as e:
-            print(f"Error saving NodeGraph session to file: {e}")
+            print(f"[JUNEbug] Error: {e}")
 
-    def on_import_yaml(self):
-        file_path, _ = QtW.QFileDialog.getOpenFileName(
-            self, "Open Config File", "", "YAML Files (*.yaml *.yml)"
+    def onImportYaml(self) -> None:
+        """Handles import."""
+        p, _ = QtW.QFileDialog.getOpenFileName(
+            self, "Open Config", "", "YAML (*.yaml *.yml)"
         )
-        if file_path:
-            config_panel = self.splitter.widget(0)
-            graph_widget = self.right_panel
+        if p:
+            yamlLoader.loadConfig(p, self.left_panel, self.right_panel)
 
-            yamlLoader.load_config(file_path, config_panel, graph_widget)
-
-    # ADDED: Method to handle YAML export
-    def on_export_yaml(self):
-        file_path, _ = QtW.QFileDialog.getSaveFileName(
-            self, "Export Config File", "", "YAML Files (*.yaml *.yml)"
+    def onExportYaml(self) -> None:
+        """Handles export."""
+        p, _ = QtW.QFileDialog.getSaveFileName(
+            self, "Save Config", "", "YAML (*.yaml *.yml)"
         )
-        if file_path:
-            config_panel = self.splitter.widget(0)
-            graph_widget = self.right_panel
-            yamlLoader.save_config(file_path, config_panel, graph_widget)
+        if p:
+            yamlLoader.saveConfig(p, self.left_panel, self.right_panel)
 
-    # ADDED: Method to import NodeGraph JSON session
-    def on_import_json(self):
-        file_path, _ = QtW.QFileDialog.getOpenFileName(
-            self, "Open NodeGraph Session", "", "JSON Files (*.json)"
+    def onImportJson(self) -> None:
+        """Handles session loading."""
+        p, _ = QtW.QFileDialog.getOpenFileName(
+            self, "Open Session", "", "JSON (*.json)"
         )
-        if file_path:
-            print(f"Loading NodeGraph session from: {file_path}")
-            try:
-                with open(file_path, "r") as f:
-                    data = json.load(f)
-
-                self.right_panel.graph.deserialize_session(data)
-                print("NodeGraph session successfully loaded.")
-            except Exception as e:
-                print(f"Error loading JSON file: {e}")
-                QtW.QMessageBox.critical(
-                    self, "Error", f"Failed to load NodeGraph session:\n{e}"
-                )
+        if p:
+            with open(p, "r") as f:
+                data = json.load(f)
+            self.right_panel.graph.deserialize_session(data)
 
 
-def run_app():
+def runApp() -> None:
+    """Bootstrap application with original theme."""
     app = QtW.QApplication(sys.argv)
-
     script_dir = os.path.dirname(os.path.abspath(__file__))
     qss_path = os.path.join(script_dir, "style", "theme.qss")
-
     if os.path.exists(qss_path):
         try:
             with open(qss_path, "r") as f:
                 app.setStyleSheet(f.read())
         except Exception as e:
-            print(f"Error loading stylesheet: {e}")
-
+            print(f"[JUNEbug] QSS Error: {e}")
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
-
-
-if __name__ == "__main__":
-    run_app()

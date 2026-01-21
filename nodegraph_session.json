@@ -9,87 +9,7 @@
         "reject_connection_types": "{}"
     },
     "nodes": {
-        "0x241d6746900": {
-            "type_": "symptoms.TransitionNode",
-            "icon": null,
-            "name": "mild",
-            "color": [
-                40,
-                150,
-                40,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 462.0,
-            "height": 193.0,
-            "pos": [
-                -2543.0,
-                -1253.8
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "tag_name": "mild",
-                "june_category": "stay_at_home_stage",
-                "tag": "2"
-            }
-        },
-        "0x241d66e39d0": {
-            "type_": "symptoms.TransitionNode",
-            "icon": null,
-            "name": "asymptomatic",
-            "color": [
-                40,
-                150,
-                40,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 462.0,
-            "height": 193.0,
-            "pos": [
-                -2543.0,
-                -954.3
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "tag_name": "asymptomatic",
-                "june_category": "none",
-                "tag": "1"
-            }
-        },
-        "0x241d66e3890": {
+        "0x24ad3e96510": {
             "type_": "symptoms.DefaultLowestStage",
             "icon": null,
             "name": "exposed",
@@ -114,182 +34,21 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 386.0,
-            "height": 193.0,
+            "width": 376.0,
+            "height": 121.60000000000001,
             "pos": [
-                -3819.5,
-                -1253.8
+                -3729.75,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
-                "tag_name": "exposed",
-                "june_category": "none",
+                "stage_type": "none",
                 "tag": "0"
             }
         },
-        "0x241d66d9cd0": {
-            "type_": "symptoms.TerminalStage",
-            "icon": null,
-            "name": "recovered",
-            "color": [
-                180,
-                40,
-                40,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 357.0,
-            "height": 193.0,
-            "pos": [
-                3924.5,
-                -1253.8
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "tag_name": "recovered",
-                "june_category": "recovered_stage",
-                "tag": "-2"
-            }
-        },
-        "0x241d66d9e00": {
-            "type_": "symptoms.TransitionNode",
-            "icon": null,
-            "name": "intensive_care",
-            "color": [
-                40,
-                150,
-                40,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 462.0,
-            "height": 193.0,
-            "pos": [
-                86.0,
-                -954.3
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "tag_name": "intensive_care",
-                "june_category": "intensive_care_stage",
-                "tag": "5"
-            }
-        },
-        "0x241d66d9f30": {
-            "type_": "symptoms.TerminalStage",
-            "icon": null,
-            "name": "dead_home",
-            "color": [
-                180,
-                40,
-                40,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 364.0,
-            "height": 193.0,
-            "pos": [
-                86.0,
-                -355.29999999999995
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "tag_name": "dead_home",
-                "june_category": "fatality_stage",
-                "tag": "6"
-            }
-        },
-        "0x241d66d9940": {
-            "type_": "symptoms.TransitionNode",
-            "icon": null,
-            "name": "severe",
-            "color": [
-                40,
-                150,
-                40,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 462.0,
-            "height": 193.0,
-            "pos": [
-                -1228.5,
-                -954.3
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "tag_name": "severe",
-                "june_category": "severe_symptoms_stay_at_home_stage",
-                "tag": "3"
-            }
-        },
-        "0x241d66da060": {
+        "0x24ad3e3f4d0": {
             "type_": "symptoms.TerminalStage",
             "icon": null,
             "name": "dead_icu",
@@ -314,22 +73,138 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 351.0,
-            "height": 193.0,
+            "width": 322.0,
+            "height": 121.60000000000001,
             "pos": [
-                1400.5,
-                -954.3
+                1367.75,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
-                "tag_name": "dead_icu",
-                "june_category": "fatality_stage",
+                "stage_type": "fatality_stage",
                 "tag": "8"
             }
         },
-        "0x241d66da2c0": {
+        "0x24ad3e3fc50": {
+            "type_": "symptoms.TerminalStage",
+            "icon": null,
+            "name": "dead_home",
+            "color": [
+                180,
+                40,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 335.0,
+            "height": 121.60000000000001,
+            "pos": [
+                81.75,
+                -222.73749999999984
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "stage_type": "fatality_stage",
+                "tag": "6"
+            }
+        },
+        "0x24ad3e456e0": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "intensive_care",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 433.0,
+            "height": 121.60000000000001,
+            "pos": [
+                81.75,
+                -415.1374999999998
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "stage_type": "intensive_care_stage",
+                "tag": "5"
+            }
+        },
+        "0x24ad3e45f30": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "mild",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 433.0,
+            "height": 121.60000000000001,
+            "pos": [
+                -2481.25,
+                -799.9374999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "stage_type": "stay_at_home_stage",
+                "tag": "2"
+            }
+        },
+        "0x24ad3e46060": {
             "type_": "symptoms.TransitionNode",
             "icon": null,
             "name": "hospitalised",
@@ -354,22 +229,60 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 462.0,
-            "height": 193.0,
+            "width": 433.0,
+            "height": 121.60000000000001,
             "pos": [
-                -1228.5,
-                -1253.8
+                -1204.25,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
-                "tag_name": "hospitalised",
-                "june_category": "hospitalised_stage",
+                "stage_type": "hospitalised_stage",
                 "tag": "4"
             }
         },
-        "0x241d66da520": {
+        "0x24ad3e45a70": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "severe",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 433.0,
+            "height": 121.60000000000001,
+            "pos": [
+                -1204.25,
+                -607.5374999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "stage_type": "severe_symptoms_stay_at_home_stage",
+                "tag": "3"
+            }
+        },
+        "0x24ad3e46190": {
             "type_": "symptoms.TerminalStage",
             "icon": null,
             "name": "dead_hospital",
@@ -394,25 +307,102 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 375.0,
-            "height": 193.0,
+            "width": 346.0,
+            "height": 121.60000000000001,
             "pos": [
-                86.0,
-                -1253.8
+                81.75,
+                -607.5374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
-                "tag_name": "dead_hospital",
-                "june_category": "fatality_stage",
+                "stage_type": "fatality_stage",
                 "tag": "7"
             }
         },
-        "0x241d66da650": {
+        "0x24ad3e463f0": {
+            "type_": "symptoms.TransitionNode",
+            "icon": null,
+            "name": "asymptomatic",
+            "color": [
+                40,
+                150,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 433.0,
+            "height": 121.60000000000001,
+            "pos": [
+                -2481.25,
+                -607.5374999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "stage_type": "none",
+                "tag": "1"
+            }
+        },
+        "0x24ad3e46650": {
+            "type_": "symptoms.TerminalStage",
+            "icon": null,
+            "name": "recovered",
+            "color": [
+                180,
+                40,
+                40,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 328.0,
+            "height": 121.60000000000001,
+            "pos": [
+                3834.75,
+                -799.9374999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "stage_type": "recovered_stage",
+                "tag": "-2"
+            }
+        },
+        "0x24ad3e46780": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "exposed -> asymptomatic",
+            "name": "UniversalTimeNode",
             "color": [
                 220,
                 160,
@@ -434,11 +424,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 310.0,
-            "height": 302.2,
+            "width": 281.0,
+            "height": 263.35,
             "pos": [
-                -3245.5,
-                -790.5
+                -3156.75,
+                -394.91249999999985
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -453,186 +443,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66da780": {
+        "0x24ad3e468b0": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "asymptomatic -> recovered",
-            "color": [
-                220,
-                160,
-                20,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 318.0,
-            "height": 138.4,
-            "pos": [
-                -1931.0,
-                299.9000000000003
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "type": "constant",
-                "Val": "14",
-                "scale": "1.0",
-                "a": "0.0",
-                "b": "0.0",
-                "c": "0.0",
-                "s": "0.0"
-            }
-        },
-        "0x241d66da8b0": {
-            "type_": "transitions.UniversalTimeNode",
-            "icon": null,
-            "name": "exposed -> mild",
-            "color": [
-                220,
-                160,
-                20,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 281.0,
-            "height": 302.2,
-            "pos": [
-                -3245.5,
-                -1253.8
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "type": "beta",
-                "Val": "0.39",
-                "scale": "39.8",
-                "a": "2.29",
-                "b": "19.05",
-                "c": "0.0",
-                "s": "0.0"
-            }
-        },
-        "0x241d66dab10": {
-            "type_": "transitions.UniversalTimeNode",
-            "icon": null,
-            "name": "mild -> recovered",
-            "color": [
-                220,
-                160,
-                20,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 281.0,
-            "height": 138.4,
-            "pos": [
-                -1931.0,
-                -327.1999999999998
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "type": "constant",
-                "Val": "20.0",
-                "scale": "1.0",
-                "a": "0.0",
-                "b": "0.0",
-                "c": "0.0",
-                "s": "0.0"
-            }
-        },
-        "0x241d66dad70": {
-            "type_": "transitions.UniversalTimeNode",
-            "icon": null,
-            "name": "mild -> severe",
-            "color": [
-                220,
-                160,
-                20,
-                255
-            ],
-            "border_color": [
-                74,
-                84,
-                85,
-                255
-            ],
-            "text_color": [
-                255,
-                255,
-                255,
-                180
-            ],
-            "disabled": false,
-            "selected": false,
-            "visible": true,
-            "width": 281.0,
-            "height": 247.60000000000002,
-            "pos": [
-                -1931.0,
-                -872.3999999999999
-            ],
-            "layout_direction": 0,
-            "port_deletion_allowed": false,
-            "subgraph_session": {},
-            "custom": {
-                "type": "lognormal",
-                "Val": "0.0",
-                "scale": "5.727",
-                "a": "0.0",
-                "b": "0.0",
-                "c": "0.0",
-                "s": "0.8325"
-            }
-        },
-        "0x241d66daea0": {
-            "type_": "transitions.UniversalTimeNode",
-            "icon": null,
-            "name": "severe -> recovered",
+            "name": "UniversalTimeNode 1",
             "color": [
                 220,
                 160,
@@ -655,17 +469,17 @@
             "selected": false,
             "visible": true,
             "width": 285.0,
-            "height": 138.4,
+            "height": 121.60000000000001,
             "pos": [
-                -616.5,
-                626.7
+                -1879.75,
+                -33.73749999999984
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
                 "type": "constant",
-                "Val": "20.0",
+                "Val": "14",
                 "scale": "1.0",
                 "a": "0.0",
                 "b": "0.0",
@@ -673,10 +487,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66dafd0": {
+        "0x24ad3e469e0": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "mild -> hospitalised",
+            "name": "UniversalTimeNode 2",
             "color": [
                 220,
                 160,
@@ -698,11 +512,187 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 281.0,
-            "height": 247.60000000000002,
+            "width": 285.0,
+            "height": 263.35,
             "pos": [
-                -1931.0,
-                -1253.8
+                -3156.75,
+                -799.9374999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "beta",
+                "Val": "0.39",
+                "scale": "39.8",
+                "a": "2.29",
+                "b": "19.05",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x24ad3e46c40": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "UniversalTimeNode 3",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 285.0,
+            "height": 121.60000000000001,
+            "pos": [
+                -1879.75,
+                -560.2874999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "20.0",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x24ad3e46ea0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "UniversalTimeNode 4",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 285.0,
+            "height": 216.1,
+            "pos": [
+                -1879.75,
+                -273.3874999999998
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "lognormal",
+                "Val": "0.0",
+                "scale": "5.727",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.8325"
+            }
+        },
+        "0x24ad3e46fd0": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "UniversalTimeNode 5",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 285.0,
+            "height": 121.60000000000001,
+            "pos": [
+                -596.75,
+                799.9374999999999
+            ],
+            "layout_direction": 0,
+            "port_deletion_allowed": false,
+            "subgraph_session": {},
+            "custom": {
+                "type": "constant",
+                "Val": "20.0",
+                "scale": "1.0",
+                "a": "0.0",
+                "b": "0.0",
+                "c": "0.0",
+                "s": "0.0"
+            }
+        },
+        "0x24ad3e47100": {
+            "type_": "transitions.UniversalTimeNode",
+            "icon": null,
+            "name": "UniversalTimeNode 6",
+            "color": [
+                220,
+                160,
+                20,
+                255
+            ],
+            "border_color": [
+                74,
+                84,
+                85,
+                255
+            ],
+            "text_color": [
+                255,
+                255,
+                255,
+                180
+            ],
+            "disabled": false,
+            "selected": false,
+            "visible": true,
+            "width": 285.0,
+            "height": 216.1,
+            "pos": [
+                -1879.75,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -717,7 +707,7 @@
                 "s": "0.55"
             }
         },
-        "0x241d66db100": {
+        "0x24ad3e47230": {
             "type_": "symptoms.TransitionNode",
             "icon": null,
             "name": "mild 2",
@@ -742,25 +732,24 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 462.0,
-            "height": 193.0,
+            "width": 433.0,
+            "height": 121.60000000000001,
             "pos": [
-                86.0,
-                -654.8
+                81.75,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
-                "tag_name": "mild",
-                "june_category": "stay_at_home_stage",
+                "stage_type": "stay_at_home_stage",
                 "tag": "2"
             }
         },
-        "0x241d66db230": {
+        "0x24ad3e47360": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "hospitalised -> mild 2",
+            "name": "UniversalTimeNode 7",
             "color": [
                 220,
                 160,
@@ -782,11 +771,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 286.0,
-            "height": 302.2,
+            "width": 285.0,
+            "height": 263.35,
             "pos": [
-                -616.5,
-                54.200000000000045
+                -596.75,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -801,10 +790,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66db360": {
+        "0x24ad3e47490": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "mild 2 -> recovered",
+            "name": "UniversalTimeNode 8",
             "color": [
                 220,
                 160,
@@ -826,11 +815,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 281.0,
-            "height": 138.4,
+            "width": 285.0,
+            "height": 121.60000000000001,
             "pos": [
-                698.0,
-                -218.0
+                689.25,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -845,10 +834,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66db490": {
+        "0x24ad3e475c0": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "hospitalised -> intensive_care",
+            "name": "UniversalTimeNode 9",
             "color": [
                 220,
                 160,
@@ -870,11 +859,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 329.0,
-            "height": 302.2,
+            "width": 285.0,
+            "height": 263.35,
             "pos": [
-                -616.5,
-                -409.0999999999999
+                -596.75,
+                10.112500000000182
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -889,7 +878,7 @@
                 "s": "0.0"
             }
         },
-        "0x241d66db5c0": {
+        "0x24ad3e476f0": {
             "type_": "symptoms.TransitionNode",
             "icon": null,
             "name": "hospitalised 2",
@@ -914,25 +903,24 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 462.0,
-            "height": 193.0,
+            "width": 433.0,
+            "height": 121.60000000000001,
             "pos": [
-                1400.5,
-                -1253.8
+                1367.75,
+                -607.5374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
-                "tag_name": "hospitalised",
-                "june_category": "hospitalised_stage",
+                "stage_type": "hospitalised_stage",
                 "tag": "4"
             }
         },
-        "0x241d66db6f0": {
+        "0x24ad3e47820": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "intensive_care -> hospitalised 2",
+            "name": "UniversalTimeNode 10",
             "color": [
                 220,
                 160,
@@ -954,11 +942,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 338.0,
-            "height": 302.2,
+            "width": 291.0,
+            "height": 263.35,
             "pos": [
-                698.0,
-                -1253.8
+                689.25,
+                -60.76249999999982
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -973,7 +961,7 @@
                 "s": "0.0"
             }
         },
-        "0x241d66db820": {
+        "0x24ad3e47950": {
             "type_": "symptoms.TransitionNode",
             "icon": null,
             "name": "mild 1",
@@ -998,25 +986,24 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 462.0,
-            "height": 193.0,
+            "width": 433.0,
+            "height": 121.60000000000001,
             "pos": [
-                2715.0,
-                -1253.8
+                2653.75,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
             "subgraph_session": {},
             "custom": {
-                "tag_name": "mild",
-                "june_category": "stay_at_home_stage",
+                "stage_type": "stay_at_home_stage",
                 "tag": "2"
             }
         },
-        "0x241d66db950": {
+        "0x24ad3e47a80": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "hospitalised 2 -> mild 1",
+            "name": "UniversalTimeNode 11",
             "color": [
                 220,
                 160,
@@ -1038,11 +1025,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 295.0,
-            "height": 302.2,
+            "width": 291.0,
+            "height": 263.35,
             "pos": [
-                2012.5,
-                -1253.8
+                1975.25,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -1057,10 +1044,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66dba80": {
+        "0x24ad3e47bb0": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "mild 1 -> recovered",
+            "name": "UniversalTimeNode 12",
             "color": [
                 220,
                 160,
@@ -1082,11 +1069,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 281.0,
-            "height": 138.4,
+            "width": 291.0,
+            "height": 121.60000000000001,
             "pos": [
-                3327.0,
-                -1253.8
+                3261.25,
+                -799.9374999999999
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -1101,10 +1088,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66dbbb0": {
+        "0x24ad3e47ce0": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "severe -> dead_home",
+            "name": "UniversalTimeNode 13",
             "color": [
                 220,
                 160,
@@ -1126,11 +1113,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 292.0,
-            "height": 138.4,
+            "width": 291.0,
+            "height": 121.60000000000001,
             "pos": [
-                -616.5,
-                1253.8
+                -596.75,
+                607.5375
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -1145,10 +1132,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66dbce0": {
+        "0x24ad3e47e10": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "hospitalised -> dead_hospital",
+            "name": "UniversalTimeNode 14",
             "color": [
                 220,
                 160,
@@ -1170,11 +1157,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 326.0,
-            "height": 302.2,
+            "width": 291.0,
+            "height": 263.35,
             "pos": [
-                -616.5,
-                -1253.8
+                -596.75,
+                -394.91249999999985
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -1189,10 +1176,10 @@
                 "s": "0.0"
             }
         },
-        "0x241d66dbe10": {
+        "0x24adb9d8050": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "hospitalised -> intensive_care 1",
+            "name": "UniversalTimeNode 15",
             "color": [
                 220,
                 160,
@@ -1214,11 +1201,11 @@
             "disabled": false,
             "selected": false,
             "visible": true,
-            "width": 338.0,
-            "height": 247.60000000000002,
+            "width": 291.0,
+            "height": 216.1,
             "pos": [
-                -616.5,
-                -845.0999999999999
+                -596.75,
+                367.88750000000016
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -1233,10 +1220,10 @@
                 "s": "1.412"
             }
         },
-        "0x241de288050": {
+        "0x24adb9d8180": {
             "type_": "transitions.UniversalTimeNode",
             "icon": null,
-            "name": "intensive_care -> dead_icu",
+            "name": "UniversalTimeNode 16",
             "color": [
                 220,
                 160,
@@ -1258,11 +1245,11 @@
             "disabled": false,
             "selected": true,
             "visible": true,
-            "width": 316.0,
-            "height": 302.2,
+            "width": 291.0,
+            "height": 263.35,
             "pos": [
-                698.0,
-                -790.5
+                689.25,
+                -465.78749999999985
             ],
             "layout_direction": 0,
             "port_deletion_allowed": false,
@@ -1280,342 +1267,342 @@
     },
     "connections": [
         {
-            "in": [
-                "0x241d6746900",
-                "Previous"
-            ],
             "out": [
-                "0x241d66da8b0",
-                "Next"
-            ]
-        },
-        {
-            "out": [
-                "0x241d6746900",
+                "0x24ad3e96510",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66dab10",
+                "0x24ad3e46780",
                 "Symptom"
             ]
         },
         {
             "out": [
-                "0x241d6746900",
+                "0x24ad3e96510",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66dad70",
-                "Symptom"
-            ]
-        },
-        {
-            "out": [
-                "0x241d6746900",
-                "Completion Time"
-            ],
-            "in": [
-                "0x241d66dafd0",
+                "0x24ad3e469e0",
                 "Symptom"
             ]
         },
         {
             "in": [
-                "0x241d66e39d0",
+                "0x24ad3e3f4d0",
                 "Previous"
             ],
             "out": [
-                "0x241d66da650",
+                "0x24adb9d8180",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e3fc50",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e47ce0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e456e0",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e475c0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e456e0",
+                "Previous"
+            ],
+            "out": [
+                "0x24adb9d8050",
                 "Next"
             ]
         },
         {
             "out": [
-                "0x241d66e39d0",
+                "0x24ad3e456e0",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66da780",
+                "0x24ad3e47820",
                 "Symptom"
             ]
         },
         {
             "out": [
-                "0x241d66e3890",
+                "0x24ad3e456e0",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66da650",
-                "Symptom"
-            ]
-        },
-        {
-            "out": [
-                "0x241d66e3890",
-                "Completion Time"
-            ],
-            "in": [
-                "0x241d66da8b0",
+                "0x24adb9d8180",
                 "Symptom"
             ]
         },
         {
             "in": [
-                "0x241d66d9cd0",
+                "0x24ad3e45f30",
                 "Previous"
             ],
             "out": [
-                "0x241d66da780",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9cd0",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66dab10",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9cd0",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66daea0",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9cd0",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66db360",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9cd0",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66dba80",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9e00",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66db490",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9e00",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66dbe10",
+                "0x24ad3e469e0",
                 "Next"
             ]
         },
         {
             "out": [
-                "0x241d66d9e00",
+                "0x24ad3e45f30",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66db6f0",
+                "0x24ad3e46c40",
                 "Symptom"
             ]
         },
         {
             "out": [
-                "0x241d66d9e00",
+                "0x24ad3e45f30",
                 "Completion Time"
             ],
             "in": [
-                "0x241de288050",
-                "Symptom"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9f30",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66dbbb0",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66d9940",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66dad70",
-                "Next"
-            ]
-        },
-        {
-            "out": [
-                "0x241d66d9940",
-                "Completion Time"
-            ],
-            "in": [
-                "0x241d66daea0",
+                "0x24ad3e46ea0",
                 "Symptom"
             ]
         },
         {
             "out": [
-                "0x241d66d9940",
+                "0x24ad3e45f30",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66dbbb0",
+                "0x24ad3e47100",
                 "Symptom"
             ]
         },
         {
             "in": [
-                "0x241d66da060",
+                "0x24ad3e46060",
                 "Previous"
             ],
             "out": [
-                "0x241de288050",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66da2c0",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66dafd0",
+                "0x24ad3e47100",
                 "Next"
             ]
         },
         {
             "out": [
-                "0x241d66da2c0",
+                "0x24ad3e46060",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66db230",
+                "0x24ad3e47360",
                 "Symptom"
             ]
         },
         {
             "out": [
-                "0x241d66da2c0",
+                "0x24ad3e46060",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66db490",
+                "0x24ad3e475c0",
                 "Symptom"
             ]
         },
         {
             "out": [
-                "0x241d66da2c0",
+                "0x24ad3e46060",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66dbce0",
+                "0x24ad3e47e10",
                 "Symptom"
             ]
         },
         {
             "out": [
-                "0x241d66da2c0",
+                "0x24ad3e46060",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66dbe10",
+                "0x24adb9d8050",
                 "Symptom"
             ]
         },
         {
             "in": [
-                "0x241d66da520",
+                "0x24ad3e45a70",
                 "Previous"
             ],
             "out": [
-                "0x241d66dbce0",
-                "Next"
-            ]
-        },
-        {
-            "in": [
-                "0x241d66db100",
-                "Previous"
-            ],
-            "out": [
-                "0x241d66db230",
+                "0x24ad3e46ea0",
                 "Next"
             ]
         },
         {
             "out": [
-                "0x241d66db100",
+                "0x24ad3e45a70",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66db360",
+                "0x24ad3e46fd0",
+                "Symptom"
+            ]
+        },
+        {
+            "out": [
+                "0x24ad3e45a70",
+                "Completion Time"
+            ],
+            "in": [
+                "0x24ad3e47ce0",
                 "Symptom"
             ]
         },
         {
             "in": [
-                "0x241d66db5c0",
+                "0x24ad3e46190",
                 "Previous"
             ],
             "out": [
-                "0x241d66db6f0",
+                "0x24ad3e47e10",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e463f0",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e46780",
                 "Next"
             ]
         },
         {
             "out": [
-                "0x241d66db5c0",
+                "0x24ad3e463f0",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66db950",
+                "0x24ad3e468b0",
                 "Symptom"
             ]
         },
         {
             "in": [
-                "0x241d66db820",
+                "0x24ad3e46650",
                 "Previous"
             ],
             "out": [
-                "0x241d66db950",
+                "0x24ad3e468b0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e46650",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e46c40",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e46650",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e46fd0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e46650",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e47490",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e46650",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e47bb0",
+                "Next"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e47230",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e47360",
                 "Next"
             ]
         },
         {
             "out": [
-                "0x241d66db820",
+                "0x24ad3e47230",
                 "Completion Time"
             ],
             "in": [
-                "0x241d66dba80",
+                "0x24ad3e47490",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e476f0",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e47820",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x24ad3e476f0",
+                "Completion Time"
+            ],
+            "in": [
+                "0x24ad3e47a80",
+                "Symptom"
+            ]
+        },
+        {
+            "in": [
+                "0x24ad3e47950",
+                "Previous"
+            ],
+            "out": [
+                "0x24ad3e47a80",
+                "Next"
+            ]
+        },
+        {
+            "out": [
+                "0x24ad3e47950",
+                "Completion Time"
+            ],
+            "in": [
+                "0x24ad3e47bb0",
                 "Symptom"
             ]
         }

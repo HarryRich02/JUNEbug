@@ -1,97 +1,75 @@
-/*
- * NodeGraph-Inspired Dark Theme for Standard Qt Widgets (Config Pane)
- * -----------------------------------------------------------------
- * This style sheet uses dark colors, light text, and subtle highlights
- * to mimic the aesthetic of a node editing environment.
- */
-
-/* ================== GLOBAL & WINDOW ================== */
-
-/* Apply to all QWidgets (Base for the Config Pane) */
+/* General colors */
 QWidget {
-    /* Background color matching a dark graph editor */
-    background-color: #263238; 
-    /* Default text color is light */
-    color: #ECEFF1; 
-    /* Clean, modern font */
-    font-family: "Segoe UI", "Inter", sans-serif;
-    font-size: 10pt;
-}
-
-/* Style the QMainWindow frame itself */
-QMainWindow {
-    border: 1px solid #37474F;
-}
-
-/* ================== LABELS & TEXT ================== */
-
-/* Standard label styling */
-QLabel {
-    color: #CFD8DC;
-    padding: 0;
-    margin-top: 5px;
-    margin-bottom: 2px;
-}
-
-/* Make the main title stand out */
-QLabel#titleLabel { /* Assuming you set objectName="titleLabel" for your main title */
-    font-size: 14pt;
-    font-weight: bold;
-    color: #78909C; /* A slightly subdued, technical highlight color */
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-
-
-/* ================== INPUT FIELDS ================== */
-
-/* Style for QLineEdit (Text Entry) and QComboBox (Dropdown) */
-QLineEdit, QComboBox {
-    background-color: #37474F; /* Dark input background */
+    background-color: #263238;
     color: #ECEFF1;
-    border: 1px solid #455A64; /* Subtle border color */
-    border-radius: 3px;
-    padding: 5px;
-    selection-background-color: #546E7A; /* Highlight color when selecting text */
+    font-family: "Segoe UI", sans-serif;
 }
 
-/* Hover and focus effects for QLineEdit/QComboBox */
-QLineEdit:hover, QComboBox:hover {
-    border: 1px solid #607D8B;
+/* Scroll area */
+QScrollArea {
+    border: none;
+    background-color: transparent;
 }
+
+/* Inputs */
+QLineEdit, QComboBox {
+    background-color: #37474F;
+    border: 1px solid #546E7A;
+    border-radius: 4px;
+    padding: 4px;
+    color: #FFFFFF;
+}
+
 QLineEdit:focus, QComboBox:focus {
-    border: 1px solid #00BCD4; /* Cyan highlight on focus (technical color) */
+    border: 1px solid #00B0FF;
 }
 
-/* ================== BUTTONS ================== */
-
+/* Button */
 QPushButton {
-    /* Use a highlight color for primary actions */
-    background-color: #00838F; 
-    color: white;
+    background-color: #00B0FF;
+    color: #FFFFFF;
     border: none;
     border-radius: 4px;
-    padding: 8px 15px;
+    padding: 8px 16px;
     font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
 }
 
 QPushButton:hover {
-    background-color: #0097A7; /* Slightly lighter on hover */
+    background-color: #40C4FF;
 }
 
 QPushButton:pressed {
-    background-color: #006064; /* Darker when pressed */
+    background-color: #0091EA;
 }
 
-/* ================== SPLITTER ================== */
+/* RESTORED: Config Title Style */
+QLabel#configTitle {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
 
-QSplitter::handle {
+/* RESTORED: Section Header Style */
+QLabel#sectionHeader {
+    font-weight: bold;
+    color: #ECEFF1;
+}
+
+/* RESTORED: Collapsible Tool Button Style */
+QToolButton#collapsibleBtn {
+    border: none;
+    font-weight: bold;
+    text-align: left;
     background-color: #37474F;
-    border: 1px solid #263238;
+    color: #ECEFF1;
+    padding: 5px;
 }
 
-QSplitter::handle:hover {
+QToolButton#collapsibleBtn:hover {
     background-color: #455A64;
+}
+
+QToolButton#collapsibleBtn:checked {
+    background-color: #546E7A;
 }
