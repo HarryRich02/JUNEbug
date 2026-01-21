@@ -1,71 +1,71 @@
-import os, sys
+import os, sys, json
+from typing import Dict, Any
 from PyQt5 import QtWidgets as QtW
 from PyQt5.QtCore import Qt
-
-import graph
-import configPanel
-import yamlLoader
+import graph, configPanel, yamlLoader
 
 
 class MainWindow(QtW.QMainWindow):
+    """Main application window coordination."""
+
     def __init__(self):
+        """Initializes UI components."""
         super().__init__()
-        self.setWindowTitle("pandemic-config-gui")
+        self.setWindowTitle("JUNEbug - pandemic-config-gui")
         self.resize(1280, 720)
-
         self.splitter = QtW.QSplitter(Qt.Horizontal)
-
-        left_panel = configPanel.DiseaseConfigWidget()
-
+        self.left_panel = configPanel.DiseaseConfigWidget()
         self.right_panel = graph.NodeGraphWidget()
 
-        left_panel.config_saved.connect(self.handle_config_save)
+        # Note: handleConfigSave connection removed as the button is gone
 
-        self.splitter.addWidget(left_panel)
+        self.splitter.addWidget(self.left_panel)
         self.splitter.addWidget(self.right_panel)
         self.splitter.setSizes([350, 930])
-
         self.setCentralWidget(self.splitter)
+        self.setupMenus()
 
-        menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu("File")
+    def setupMenus(self) -> None:
+        """Creates the File menu."""
+        menu = self.menuBar().addMenu("File")
+        # Removed "Import JSON Session..." from the actions list
+        actions = [
+            ("Import YAML...", self.onImportYaml),
+            ("Export YAML...", self.onExportYaml),
+        ]
+        for label, func in actions:
+            act = QtW.QAction(label, self)
+            act.triggered.connect(func)
+            menu.addAction(act)
 
-        load_action = QtW.QAction("Import YAML...", self)
-        load_action.triggered.connect(self.on_import_yaml)
-        file_menu.addAction(load_action)
-
-    def handle_config_save(self, config_data):
-        print("MainWindow received saved config.")
-        graph_data = self.right_panel.graph.serialize_session()
-
-    def on_import_yaml(self):
-        file_path, _ = QtW.QFileDialog.getOpenFileName(
-            self, "Open Config File", "", "YAML Files (*.yaml *.yml)"
+    def onImportYaml(self) -> None:
+        """Handles import."""
+        p, _ = QtW.QFileDialog.getOpenFileName(
+            self, "Open Config", "", "YAML (*.yaml *.yml)"
         )
-        if file_path:
-            config_panel = self.splitter.widget(0)
-            graph_widget = self.right_panel
+        if p:
+            yamlLoader.loadConfig(p, self.left_panel, self.right_panel)
 
-            yamlLoader.load_config(file_path, config_panel, graph_widget)
+    def onExportYaml(self) -> None:
+        """Handles export."""
+        p, _ = QtW.QFileDialog.getSaveFileName(
+            self, "Save Config", "", "YAML (*.yaml *.yml)"
+        )
+        if p:
+            yamlLoader.saveConfig(p, self.left_panel, self.right_panel)
 
 
-def run_app():
+def runApp() -> None:
+    """Bootstrap application with original theme."""
     app = QtW.QApplication(sys.argv)
-
     script_dir = os.path.dirname(os.path.abspath(__file__))
     qss_path = os.path.join(script_dir, "style", "theme.qss")
-
     if os.path.exists(qss_path):
         try:
             with open(qss_path, "r") as f:
                 app.setStyleSheet(f.read())
         except Exception as e:
-            print(f"Error loading stylesheet: {e}")
-
+            print(f"[JUNEbug] QSS Error: {e}")
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
-
-
-if __name__ == "__main__":
-    run_app()

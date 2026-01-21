@@ -1,7 +1,9 @@
+from typing import Dict, Any, List, Optional
 from PyQt5 import QtWidgets as QtW
 from PyQt5.QtCore import Qt, pyqtSignal, QPropertyAnimation, QAbstractAnimation
 
-DISEASE_STAGES = [
+# Constants for clinical stages
+DISEASE_STAGES: List[str] = [
     "recovered",
     "healthy",
     "exposed",
@@ -15,240 +17,243 @@ DISEASE_STAGES = [
     "dead_icu",
 ]
 
-DISTRIBUTION_TYPES = ["constant", "normal", "lognormal", "beta", "gamma", "exponweib"]
+DISTRIBUTION_TYPES: List[str] = [
+    "constant",
+    "normal",
+    "lognormal",
+    "beta",
+    "gamma",
+    "exponweib",
+]
 
 
 class DistributionEditor(QtW.QWidget):
     """
-    A widget that lets you pick a distribution type and edits its parameters.
-    Emits sig_resize when the number of fields changes.
+    Sub-panel for defining global transmission mathematical distribution parameters.
     """
 
-    sig_resize = pyqtSignal()
+    sigResize = pyqtSignal()
 
-    def __init__(self, label_text, default_type="constant"):
+    def __init__(self, label_text: str, default_type: str = "constant"):
+        """
+        Initializes the DistributionEditor widget.
+
+        Args:
+            label_text: The label text to display for this distribution group.
+            default_type: The mathematical distribution type to select by default.
+        """
         super().__init__()
-        self.main_layout = QtW.QVBoxLayout(self)
-        self.main_layout.setContentsMargins(5, 5, 5, 5)
+        layout = QtW.QVBoxLayout(self)
+        layout.setContentsMargins(5, 5, 5, 5)
 
-        header_layout = QtW.QHBoxLayout()
-        header_layout.addWidget(QtW.QLabel(f"{label_text} Type:"))
+        header = QtW.QHBoxLayout()
+        header.addWidget(QtW.QLabel(f"{label_text} Type:"))
         self.type_combo = QtW.QComboBox()
         self.type_combo.addItems(DISTRIBUTION_TYPES)
         self.type_combo.setCurrentText(default_type)
-        self.type_combo.currentTextChanged.connect(self._update_fields)
-        header_layout.addWidget(self.type_combo)
-        self.main_layout.addLayout(header_layout)
+        self.type_combo.currentTextChanged.connect(self.updateFields)
+        header.addWidget(self.type_combo)
+        layout.addLayout(header)
 
         self.params_widget = QtW.QWidget()
-        self.params_widget.setSizePolicy(
-            QtW.QSizePolicy.Preferred, QtW.QSizePolicy.Fixed
-        )
         self.params_layout = QtW.QFormLayout(self.params_widget)
         self.params_layout.setContentsMargins(0, 0, 0, 0)
-        self.main_layout.addWidget(self.params_widget)
+        layout.addWidget(self.params_widget)
+        self.inputs: Dict[str, QtW.QLineEdit] = {}
+        self.updateFields(default_type)
 
-        self.inputs = {}
-        self._update_fields(default_type)
+    def updateFields(self, dist_type: str) -> None:
+        """
+        Rebuilds the input fields dynamically based on the selected distribution type.
 
-    def _update_fields(self, dist_type):
-        """Rebuilds the input fields based on the selected distribution."""
+        Args:
+            dist_type: The name of the statistical distribution (e.g., 'beta').
+        """
         while self.params_layout.count():
             child = self.params_layout.takeAt(0)
             if child.widget():
                 child.widget().deleteLater()
+
         self.inputs = {}
+        fields = {
+            "constant": ["value"],
+            "normal": ["loc", "scale"],
+            "lognormal": ["s", "loc", "scale"],
+            "gamma": ["a", "loc", "scale"],
+            "beta": ["a", "b", "loc", "scale"],
+            "exponweib": ["a", "c", "loc", "scale"],
+        }.get(dist_type, [])
 
-        fields = []
-        if dist_type == "constant":
-            fields = ["value"]
-        elif dist_type == "normal":
-            fields = ["loc", "scale"]
-        elif dist_type == "lognormal":
-            fields = ["s", "loc", "scale"]
-        elif dist_type == "gamma":
-            fields = ["a", "loc", "scale"]
-        elif dist_type == "beta":
-            fields = ["a", "b", "loc", "scale"]
-        elif dist_type == "exponweib":
-            fields = ["a", "c", "loc", "scale"]
+        for f in fields:
+            edit = QtW.QLineEdit()
+            self.inputs[f] = edit
+            self.params_layout.addRow(f"{f}:", edit)
+        self.sigResize.emit()
 
-        for field in fields:
-            line_edit = QtW.QLineEdit()
-            line_edit.setPlaceholderText("0.0")
-            self.inputs[field] = line_edit
-            self.params_layout.addRow(f"{field}:", line_edit)
+    def getData(self) -> Dict[str, Any]:
+        """
+        Gathers the entered parameters into a dictionary for YAML export.
 
-        self.sig_resize.emit()
-
-    def get_data(self):
-        dist_type = self.type_combo.currentText()
-        data = {"type": dist_type}
-        for field, widget in self.inputs.items():
+        Returns:
+            A dictionary containing the distribution 'type' and its numeric parameters.
+        """
+        data = {"type": self.type_combo.currentText()}
+        for f, widget in self.inputs.items():
             val = widget.text()
             try:
-                if "." in val:
-                    data[field] = float(val)
-                else:
-                    data[field] = int(val)
+                data[f] = float(val) if "." in val else int(val)
             except ValueError:
-                data[field] = val if val else 0.0
+                data[f] = 0.0
         return data
 
 
 class CollapsibleBox(QtW.QWidget):
     """
-    A custom widget that acts as a single item in an accordion.
+    An individual styled container in the accordion that can expand or collapse its content.
     """
 
     toggled = pyqtSignal(bool)
 
-    def __init__(self, title, content_widget, parent=None):
-        super(CollapsibleBox, self).__init__(parent)
-        self.toggle_button = QtW.QToolButton(text=title, checkable=True, checked=False)
-        self.toggle_button.setStyleSheet(
-            "QToolButton { border: none; font-weight: bold; text-align: left; background-color: #37474F; color: #ECEFF1; padding: 5px; } QToolButton:hover { background-color: #455A64; } QToolButton:checked { background-color: #546E7A; }"
-        )
-        self.toggle_button.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        self.toggle_button.setArrowType(Qt.RightArrow)
-        self.toggle_button.clicked.connect(self.on_pressed)
+    def __init__(
+        self, title: str, content: QtW.QWidget, parent: Optional[QtW.QWidget] = None
+    ):
+        """
+        Initializes the CollapsibleBox.
 
-        self.content_area = content_widget
-        self.content_area.setMaximumHeight(0)
-        self.content_area.setMinimumHeight(0)
-        self.content_area.setSizePolicy(
-            QtW.QSizePolicy.Expanding, QtW.QSizePolicy.Fixed
-        )
+        Args:
+            title: The text displayed on the toggle button.
+            content: The widget to be shown or hidden.
+            parent: The optional parent widget.
+        """
+        super().__init__(parent)
+        self.btn = QtW.QToolButton(text=title, checkable=True)
+        self.btn.setObjectName("collapsibleBtn")  # Styled via theme.qss
+        self.btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+        self.btn.setArrowType(Qt.RightArrow)
+        self.btn.clicked.connect(self.onPressed)
 
-        if hasattr(self.content_area, "sig_resize"):
-            self.content_area.sig_resize.connect(self.on_content_resize)
+        self.content = content
+        self.content.setMaximumHeight(0)
 
         lay = QtW.QVBoxLayout(self)
         lay.setSpacing(0)
         lay.setContentsMargins(0, 0, 0, 0)
-        lay.addWidget(self.toggle_button)
-        lay.addWidget(self.content_area)
+        lay.addWidget(self.btn)
+        lay.addWidget(self.content)
+        self.anim = QPropertyAnimation(self.content, b"maximumHeight")
 
-        self.anim = QPropertyAnimation(self.content_area, b"maximumHeight")
+    def onPressed(self) -> None:
+        """
+        Triggers the expansion or collapse animation when the button is pressed.
+        """
+        chk = self.btn.isChecked()
+        self.btn.setArrowType(Qt.DownArrow if chk else Qt.RightArrow)
+        self.toggled.emit(chk)
+        self.content.layout().activate()
+        self.anim.setEndValue(self.content.layout().sizeHint().height() if chk else 0)
         self.anim.setDuration(200)
-        self.anim.setStartValue(0)
-        self.anim.setEndValue(0)
-
-    def on_pressed(self):
-        checked = self.toggle_button.isChecked()
-        self.toggle_button.setArrowType(Qt.DownArrow if checked else Qt.RightArrow)
-        self.toggled.emit(checked)
-
-        self.content_area.layout().activate()
-        content_height = self.content_area.layout().sizeHint().height()
-
-        self.anim.setDirection(
-            QAbstractAnimation.Forward if checked else QAbstractAnimation.Backward
-        )
-        self.anim.setEndValue(content_height)
         self.anim.start()
 
-    def on_content_resize(self):
-        """Called when the inner content changes size (e.g. dropdown change)."""
-        if self.toggle_button.isChecked():
-            self.content_area.layout().activate()
-            new_height = self.content_area.layout().sizeHint().height()
-
-            self.anim.setDirection(QAbstractAnimation.Forward)
-            self.anim.setEndValue(new_height)
-            self.anim.start()
-
-    def collapse(self):
-        if self.toggle_button.isChecked():
-            self.toggle_button.setChecked(False)
-            self.on_pressed()
-
-    def expand(self):
-        if not self.toggle_button.isChecked():
-            self.toggle_button.setChecked(True)
-            self.on_pressed()
+    def collapse(self) -> None:
+        """
+        Programmatically collapses the box if it is currently expanded.
+        """
+        if self.btn.isChecked():
+            self.btn.setChecked(False)
+            self.onPressed()
 
 
 class AccordionWidget(QtW.QWidget):
     """
-    Manages a list of CollapsibleBoxes, ensuring only one is open at a time.
+    Manages a stack of CollapsibleBoxes, ensuring only one is open at a time.
     """
 
     def __init__(self):
+        """Initializes the AccordionWidget."""
         super().__init__()
         self.layout = QtW.QVBoxLayout(self)
-        self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setSpacing(5)
-        self.boxes = []
+        self.boxes: List[CollapsibleBox] = []
         self.layout.addStretch(1)
 
-    def add_item(self, title, widget):
+    def addItem(self, title: str, widget: QtW.QWidget) -> None:
+        """
+        Adds a new collapsible item to the managed stack.
+
+        Args:
+            title: The label for the toggle button.
+            widget: The content widget for the box.
+        """
         box = CollapsibleBox(title, widget)
-        # Insert before the stretch
         self.layout.insertWidget(self.layout.count() - 1, box)
         self.boxes.append(box)
+        box.toggled.connect(lambda chk: self.onBoxToggled(box, chk))
 
-        box.toggled.connect(lambda checked: self._on_box_toggled(box, checked))
-        return box
+    def onBoxToggled(self, sender: CollapsibleBox, checked: bool) -> None:
+        """
+        Handles mutual exclusivity for the collapsible boxes.
 
-    def _on_box_toggled(self, sender, checked):
+        Args:
+            sender: The box instance that was toggled.
+            checked: The new expansion state.
+        """
         if checked:
-            for box in self.boxes:
-                if box != sender:
-                    box.collapse()
+            for b in self.boxes:
+                if b != sender:
+                    b.collapse()
 
 
 class DiseaseConfigWidget(QtW.QWidget):
-    config_saved = pyqtSignal(dict)
+    """
+    The primary control panel for global disease metadata and transmission dynamics.
+    """
+
+    configSaved = pyqtSignal(dict)
 
     def __init__(self):
+        """Initializes the main configuration panel with the original look."""
         super().__init__()
         self.setObjectName("configPanel")
+        layout = QtW.QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
 
-        main_layout = QtW.QVBoxLayout(self)
-        main_layout.setContentsMargins(0, 0, 0, 0)
+        self.scroll = QtW.QScrollArea()
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setFrameShape(QtW.QFrame.NoFrame)
 
-        self.scroll_area = QtW.QScrollArea()
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setFrameShape(QtW.QFrame.NoFrame)
+        content = QtW.QWidget()
+        self.form = QtW.QVBoxLayout(content)
+        self.form.setContentsMargins(20, 20, 20, 20)
 
-        self.content_widget = QtW.QWidget()
-        self.form_layout = QtW.QVBoxLayout(self.content_widget)
-        self.form_layout.setContentsMargins(20, 20, 20, 20)
+        title = QtW.QLabel("Disease Config")
+        title.setObjectName("configTitle")  # Styled via theme.qss
+        self.form.addWidget(title)
 
-        title_label = QtW.QLabel("Disease Config")
-        title_label.setStyleSheet(
-            "font-size: 16px; font-weight: bold; margin-bottom: 10px;"
-        )
-        self.form_layout.addWidget(title_label)
-
-        self.form_layout.addWidget(QtW.QLabel("Name:"))
+        self.form.addWidget(QtW.QLabel("Name:"))
         self.name_entry = QtW.QLineEdit()
-        self.name_entry.setPlaceholderText("e.g., COVID-19")
-        self.form_layout.addWidget(self.name_entry)
+        self.form.addWidget(self.name_entry)
 
-        self.form_layout.addWidget(QtW.QLabel("Default Lowest Stage:"))
+        self.form.addWidget(QtW.QLabel("Default Lowest Stage:"))
         self.dls_combo = QtW.QComboBox()
         self.dls_combo.addItems(DISEASE_STAGES)
-        self.form_layout.addWidget(self.dls_combo)
+        self.form.addWidget(self.dls_combo)
 
-        self.form_layout.addWidget(QtW.QLabel("Max Mild Symptom Tag:"))
+        self.form.addWidget(QtW.QLabel("Max Mild Symptom Tag:"))
         self.mmst_combo = QtW.QComboBox()
         self.mmst_combo.addItems(DISEASE_STAGES)
-        self.form_layout.addWidget(self.mmst_combo)
+        self.form.addWidget(self.mmst_combo)
 
-        self.form_layout.addSpacing(20)
-        self.form_layout.addWidget(QtW.QLabel("<b>Transmission Dynamics</b>"))
+        self.form.addSpacing(20)
+        header = QtW.QLabel("Transmission Dynamics")
+        header.setObjectName("sectionHeader")  # Styled via theme.qss
+        self.form.addWidget(header)
 
-        trans_type_layout = QtW.QHBoxLayout()
-        trans_type_layout.addWidget(QtW.QLabel("Global Type:"))
         self.trans_type_combo = QtW.QComboBox()
         self.trans_type_combo.addItems(["gamma", "normal", "beta"])
-        trans_type_layout.addWidget(self.trans_type_combo)
-        self.form_layout.addLayout(trans_type_layout)
+        self.form.addWidget(self.trans_type_combo)
 
         self.accordion = AccordionWidget()
-        self.trans_editors = {}
+        self.trans_editors: Dict[str, DistributionEditor] = {}
 
         sections = [
             ("max_infectiousness", "Max Infectiousness", "lognormal"),
@@ -259,37 +264,30 @@ class DiseaseConfigWidget(QtW.QWidget):
             ("mild_infectious_factor", "Mild Factor", "constant"),
         ]
 
-        for key, name, default_dist in sections:
-            editor = DistributionEditor(name, default_type=default_dist)
-            self.trans_editors[key] = editor
-            self.accordion.add_item(name, editor)
+        for k, n, d in sections:
+            editor = DistributionEditor(n, default_type=d)
+            self.trans_editors[k] = editor
+            self.accordion.addItem(n, editor)
 
-        self.form_layout.addWidget(self.accordion)
+        self.form.addWidget(self.accordion)
+        self.form.addStretch(1)  # Pushes content to the top
 
-        self.form_layout.addSpacing(20)
-        self.save_button = QtW.QPushButton("Save Configuration")
-        self.save_button.clicked.connect(self.getConfigData)
-        self.form_layout.addWidget(self.save_button)
+        self.scroll.setWidget(content)
+        layout.addWidget(self.scroll)
 
-        self.form_layout.addStretch(1)
+    def getConfigData(self) -> Dict[str, Any]:
+        """
+        Aggregates all panel inputs into a single dictionary for processing.
 
-        self.scroll_area.setWidget(self.content_widget)
-        main_layout.addWidget(self.scroll_area)
-
-    def getConfigData(self):
-        config_data = {
+        Returns:
+            A dictionary containing the full disease configuration data.
+        """
+        data = {
             "name": self.name_entry.text(),
             "default_lowest_stage": self.dls_combo.currentText(),
             "max_mild_symptom_tag": self.mmst_combo.currentText(),
             "transmission": {"type": self.trans_type_combo.currentText()},
         }
-
-        for key, editor in self.trans_editors.items():
-            config_data["transmission"][key] = editor.get_data()
-
-        print("--- Configuration Data Retrieved ---")
-        print(f"Name: {config_data['name']}")
-        print(f"Transmission: {config_data['transmission']}")
-        print("------------------------------------")
-
-        self.config_saved.emit(config_data)
+        for k, ed in self.trans_editors.items():
+            data["transmission"][k] = ed.getData()
+        return data
