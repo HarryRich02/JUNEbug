@@ -6,8 +6,8 @@ disease:
     stay_at_home_stage:
     - name: mild
     fatality_stage:
-    - name: dead_icu
     - name: dead_home
+    - name: dead_icu
     - name: dead_hospital
     recovered_stage:
     - name: recovered
@@ -20,26 +20,26 @@ disease:
   symptom_tags:
   - name: healthy
     value: -1
-  - name: exposed
-    value: 0
-  - name: dead_icu
-    value: 8
-  - name: dead_home
-    value: 6
-  - name: intensive_care
-    value: 5
-  - name: mild
-    value: 2
-  - name: hospitalised
-    value: 4
   - name: severe
     value: 3
-  - name: dead_hospital
-    value: 7
   - name: asymptomatic
     value: 1
+  - name: dead_home
+    value: 6
+  - name: hospitalised
+    value: 4
+  - name: mild
+    value: 2
+  - name: intensive_care
+    value: 5
+  - name: dead_icu
+    value: 8
   - name: recovered
     value: -2
+  - name: dead_hospital
+    value: 7
+  - name: exposed
+    value: 0
   infection_outcome_rates: []
   rate_to_tag_mapping: {}
   unrated_tags: []

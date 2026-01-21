@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "JUNEbug"
-version = "0.1.0"
+version = "0.1.1"
 description = "UI tool for JUNE"
 readme = "README.md"
 license = { file = "LICENSE" }

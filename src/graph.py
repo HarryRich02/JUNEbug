@@ -141,8 +141,18 @@ class NodeGraphWidget(QtW.QWidget):
         self.graph.property_changed.connect(self.onNodePropChanged)
 
     def setupContextMenu(self) -> None:
-        """Configures right-click menus for adding nodes."""
+        """
+        Initializes the context menus for creating symptom and transition nodes,
+        and adds a command for manual auto-layout with a fix for the TypeError.
+        """
         graph_menu = self.graph.get_context_menu("graph")
+
+        # FIX: Pass all_nodes() to the layout engine to avoid TypeError
+        graph_menu.add_command(
+            "Auto Layout", lambda: self.graph.auto_layout_nodes(self.graph.all_nodes())
+        )
+        graph_menu.add_separator()
+
         symptom_menu = graph_menu.add_menu("Symptom Nodes")
 
         def createCmd(node_class):
@@ -197,9 +207,17 @@ class NodeGraphWidget(QtW.QWidget):
             self.updateNodeVisibility(node)
 
     def updateNodeVisibility(self, node: UniversalTimeNode) -> None:
-        """Hides or shows input fields and resizes node based on distribution type."""
+        """
+        Hides or shows parameter input fields and their labels based on
+        the selected distribution type to prevent 'ghost parameters'.
+
+        Args:
+            node: The UniversalTimeNode to update.
+        """
         dist_type = node.get_property("type")
-        v_map = {
+
+        # Define which parameters should be visible for each distribution type
+        visibility_map = {
             "constant": ["Val"],
             "normal": ["Val", "scale"],
             "lognormal": ["Val", "scale", "s"],
@@ -207,19 +225,43 @@ class NodeGraphWidget(QtW.QWidget):
             "beta": ["Val", "scale", "a", "b"],
             "exponweib": ["Val", "scale", "a", "c"],
         }
-        all_f = ["Val", "scale", "a", "b", "c", "s"]
-        visible_f = v_map.get(dist_type, ["Val"])
+
+        all_fields = ["Val", "scale", "a", "b", "c", "s"]
+        visible_fields = visibility_map.get(dist_type, ["Val"])
 
         visible_count = 0
-        for f in all_f:
-            widget_wrapper = node.get_widget(f)
+        for field in all_fields:
+            widget_wrapper = node.get_widget(field)
             if widget_wrapper:
-                should_show = f in visible_f
+                should_show = field in visible_fields
+
+                # 1. Toggle visibility of the wrapper itself
                 widget_wrapper.setVisible(should_show)
-                if hasattr(widget_wrapper, "label_widget"):
-                    widget_wrapper.label_widget.setVisible(should_show)
+
+                # 2. Correctly call internal widget() and label() methods
+                # This ensures the internal Qt elements are properly hidden
+                try:
+                    # Check for the widget method and call it
+                    if hasattr(widget_wrapper, "widget"):
+                        internal_widget = widget_wrapper.widget()
+                        if internal_widget:
+                            internal_widget.setVisible(should_show)
+
+                    # Check for the label method and call it
+                    if hasattr(widget_wrapper, "label"):
+                        label_widget = widget_wrapper.label()
+                        if label_widget:
+                            label_widget.setVisible(should_show)
+                except Exception:
+                    # Fallback for different NodeGraphQt versions/configurations
+                    pass
+
                 if should_show:
                     visible_count += 1
 
-        node.set_property("height", 80 + (visible_count * 28), push_undo=False)
+        # 3. Recalculate node height to eliminate empty space from hidden parameters
+        new_height = 80 + (visible_count * 28)
+        node.set_property("height", new_height, push_undo=False)
+
+        # 4. Trigger a refresh to clear visual artifacts
         node.update()

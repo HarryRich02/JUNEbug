@@ -163,12 +163,11 @@ def updateGraph(widget: Any, disease: Dict[str, Any]) -> None:
 
     QtWidgets.QApplication.processEvents()
     try:
-        graph.auto_layout_nodes()
+        # FIX: Explicitly pass the list of nodes
+        graph.auto_layout_nodes(graph.all_nodes())
         graph.fit_to_selection()
-    except RecursionError:
-        log(
-            "Auto-Layout failure: Infinite recursion avoided. Cycles exist in trajectories."
-        )
+    except Exception as e:
+        log(f"Auto-Layout failed: {e}")
 
     QtCore.QTimer.singleShot(200, lambda: finalizeVisibility(widget))
 

@@ -16,7 +16,9 @@ class MainWindow(QtW.QMainWindow):
         self.splitter = QtW.QSplitter(Qt.Horizontal)
         self.left_panel = configPanel.DiseaseConfigWidget()
         self.right_panel = graph.NodeGraphWidget()
-        self.left_panel.configSaved.connect(self.handleConfigSave)
+
+        # Note: handleConfigSave connection removed as the button is gone
+
         self.splitter.addWidget(self.left_panel)
         self.splitter.addWidget(self.right_panel)
         self.splitter.setSizes([350, 930])
@@ -26,24 +28,15 @@ class MainWindow(QtW.QMainWindow):
     def setupMenus(self) -> None:
         """Creates the File menu."""
         menu = self.menuBar().addMenu("File")
+        # Removed "Import JSON Session..." from the actions list
         actions = [
             ("Import YAML...", self.onImportYaml),
             ("Export YAML...", self.onExportYaml),
-            ("Import JSON Session...", self.onImportJson),
         ]
         for label, func in actions:
             act = QtW.QAction(label, self)
             act.triggered.connect(func)
             menu.addAction(act)
-
-    def handleConfigSave(self, data: Dict[str, Any]) -> None:
-        """Serializes session."""
-        session = self.right_panel.graph.serialize_session()
-        try:
-            with open("nodegraph_session.json", "w") as f:
-                json.dump(session, f, indent=4)
-        except Exception as e:
-            print(f"[JUNEbug] Error: {e}")
 
     def onImportYaml(self) -> None:
         """Handles import."""
@@ -60,16 +53,6 @@ class MainWindow(QtW.QMainWindow):
         )
         if p:
             yamlLoader.saveConfig(p, self.left_panel, self.right_panel)
-
-    def onImportJson(self) -> None:
-        """Handles session loading."""
-        p, _ = QtW.QFileDialog.getOpenFileName(
-            self, "Open Session", "", "JSON (*.json)"
-        )
-        if p:
-            with open(p, "r") as f:
-                data = json.load(f)
-            self.right_panel.graph.deserialize_session(data)
 
 
 def runApp() -> None:
