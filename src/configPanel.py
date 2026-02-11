@@ -1,8 +1,18 @@
+"""
+Configuration Panel Module
+
+Left panel UI for disease metadata and transmission dynamics configuration.
+Provides form-based controls for global disease parameters.
+"""
+
 from typing import Dict, Any, List, Optional
 from PyQt5 import QtWidgets as QtW
 from PyQt5.QtCore import Qt, pyqtSignal, QPropertyAnimation, QAbstractAnimation
 
-# Constants for clinical stages
+# ============================================================================
+# Constants: Clinical Disease Stages
+# ============================================================================
+
 DISEASE_STAGES: List[str] = [
     "recovered",
     "healthy",
@@ -16,6 +26,10 @@ DISEASE_STAGES: List[str] = [
     "dead_hospital",
     "dead_icu",
 ]
+
+# ============================================================================
+# Constants: Statistical Distribution Types
+# ============================================================================
 
 DISTRIBUTION_TYPES: List[str] = [
     "constant",

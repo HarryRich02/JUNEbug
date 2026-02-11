@@ -1,9 +1,19 @@
+"""
+Graph Panel Module
+
+Right panel containing the NodeGraphQt-based disease trajectory editor.
+Manages node creation, connections, time distribution insertion, and visualization.
+"""
+
 from typing import List, Optional, Union, Any
 from PyQt5 import QtWidgets as QtW
 from PyQt5 import QtCore
 import NodeGraphQt as NGQt
 
-# Categories for JUNE simulator logic mapping
+# ============================================================================
+# Constants: JUNE Simulator Logic Categories
+# ============================================================================
+
 STAGE_TYPES: List[str] = [
     "none",
     "stay_at_home_stage",

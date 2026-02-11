@@ -1,29 +1,55 @@
+"""
+YAML Configuration Loader and Saver Module
+
+Handles import and export of disease configurations in YAML format.
+Manages the translation between file format and UI/graph state.
+"""
+
 from typing import Dict, List, Any, Optional, Tuple, Set
 import yaml
 import traceback
 from collections import defaultdict
+
 from PyQt5 import QtWidgets, QtCore
 import NodeGraphQt as NGQt
 
-# Node identification for graph building
 from graph import DefaultLowestStage, TransitionNode, TerminalStage, UniversalTimeNode
 from configPanel import DiseaseConfigWidget
 
 
 class NoAliasDumper(yaml.SafeDumper):
-    """Prevents YAML aliases/anchors to ensure the file is human-readable."""
+    """
+    Custom YAML dumper that prevents aliases/anchors.
+    
+    This ensures output YAML is fully explicit and human-readable,
+    which is important for manual editing in text editors.
+    """
 
     def ignore_aliases(self, data: Any) -> bool:
+        """Disable YAML aliases for all data types."""
         return True
 
 
 def log(message: str) -> None:
-    """Standardized logging for the loader."""
+    """Print standardized log message with JUNEbug prefix."""
     print(f"[JUNEbug] {message}", flush=True)
 
 
 def loadConfig(path: str, panel: DiseaseConfigWidget, widget: Any) -> None:
-    """Main entry for importing JUNE YAML configurations."""
+    """
+    Load a YAML disease configuration from file.
+    
+    Orchestrates the import process:
+    1. Read and parse YAML file
+    2. Extract disease data section
+    3. Update configuration panel with metadata
+    4. Rebuild graph from trajectories
+    
+    Args:
+        path: Absolute path to the YAML configuration file.
+        panel: DiseaseConfigWidget to populate.
+        widget: NodeGraphWidget to rebuild.
+    """
     log(f"Loading: {path}")
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -44,7 +70,16 @@ def loadConfig(path: str, panel: DiseaseConfigWidget, widget: Any) -> None:
 
 
 def updateConfigPanel(panel: DiseaseConfigWidget, disease: Dict[str, Any]) -> None:
-    """Populates metadata fields in the configuration panel."""
+    """
+    Populate the configuration panel from disease data.
+    
+    Updates form fields with metadata and transmission parameters from
+    the loaded disease configuration.
+    
+    Args:
+        panel: DiseaseConfigWidget to update.
+        disease: Disease data dictionary from YAML.
+    """
     panel.name_entry.setText(disease.get("name", ""))
     sets = disease.get("settings", {})
     if "default_lowest_stage" in sets:
@@ -65,8 +100,22 @@ def updateConfigPanel(panel: DiseaseConfigWidget, disease: Dict[str, Any]) -> No
 
 def updateGraph(widget: Any, disease: Dict[str, Any]) -> None:
     """
-    Translates YAML trajectories into a deduplicated node graph.
-    Prevents recursion errors by using numbered copies for re-entrant tags.
+    Rebuild the graph visualization from disease trajectories.
+    
+    Translates YAML trajectories into a node-graph:
+    1. Create master nodes for each unique clinical stage
+    2. Draw trajectory paths with time distribution nodes
+    3. Handle re-entrant stages with deduplication
+    4. Auto-layout and finalize visibility
+    
+    Args:
+        widget: NodeGraphWidget to rebuild.
+        disease: Disease data dictionary from YAML.
+    
+    Note:
+        Deduplication prevents recursion errors when a stage appears
+        multiple times in a trajectory. Only the first occurrence uses
+        the master node; subsequent occurrences create numbered copies.
     """
     graph = widget.graph
     graph.clear_session()
@@ -174,14 +223,31 @@ def updateGraph(widget: Any, disease: Dict[str, Any]) -> None:
 
 
 def finalizeVisibility(widget: Any) -> None:
-    """Updates scaling of nodes once physically placed."""
+    """
+    Update node sizing and visibility after auto-layout.
+    
+    Ensures time node heights are correct for their visible fields
+    after the graph has been physically placed and laid out.
+    
+    Args:
+        widget: NodeGraphWidget to finalize.
+    """
     for n in widget.graph.all_nodes():
         if isinstance(n, UniversalTimeNode):
             widget.updateNodeVisibility(n)
 
 
 def createTimeNode(widget: Any, comp: Dict[str, Any]) -> NGQt.BaseNode:
-    """Creates a TimeDistribution node with numerical parameters."""
+    """
+    Create a UniversalTimeNode with distribution parameters.
+    
+    Args:
+        widget: NodeGraphWidget to create the node in.
+        comp: Dictionary with 'type' and parameter fields.
+    
+    Returns:
+        The created UniversalTimeNode.
+    """
     n = widget.graph.create_node("transitions.UniversalTimeNode", push_undo=False)
     n.set_property("type", comp.get("type", "constant"), push_undo=False)
     for k, v in comp.items():
@@ -195,7 +261,20 @@ def createTimeNode(widget: Any, comp: Dict[str, Any]) -> NGQt.BaseNode:
 
 
 def saveConfig(path: str, panel: DiseaseConfigWidget, widget: Any) -> None:
-    """Exports UI state and Graph paths back into JUNE YAML."""
+    """
+    Export the current configuration to a YAML file.
+    
+    Orchestrates the export process:
+    1. Extract metadata from configuration panel
+    2. Extract nodes and trajectories from graph
+    3. Build complete YAML disease structure
+    4. Write to file
+    
+    Args:
+        path: Absolute path to the output YAML file.
+        panel: DiseaseConfigWidget to read from.
+        widget: NodeGraphWidget to read from.
+    """
     p_data = panel.getConfigData()
     output = {
         "disease": {
@@ -254,7 +333,18 @@ def saveConfig(path: str, panel: DiseaseConfigWidget, widget: Any) -> None:
 def findTrajectoriesDfs(
     n: NGQt.BaseNode, st: List[Dict[str, Any]], acc: List[Dict[str, Any]]
 ) -> None:
-    """Recursive search to discover all valid trajectories through the node network."""
+    """
+    Recursively extract disease trajectories via depth-first search.
+    
+    Traverses the graph from the given node, building paths as we go.
+    When a terminal node (dead end) is reached, the complete trajectory
+    is added to the accumulator.
+    
+    Args:
+        n: Current node in the traversal.
+        st: Stages visited so far in this trajectory.
+        acc: Accumulator list to collect completed trajectories.
+    """
     tag_name = n.name().split(" ")[0]
     entry = {"symptom_tag": tag_name}
     if isinstance(n, TerminalStage) or not n.output(0).connected_ports():
@@ -276,7 +366,18 @@ def findTrajectoriesDfs(
 
 
 def extractDistData(n: UniversalTimeNode) -> Dict[str, Any]:
-    """Retrieves numerical distribution properties from a node."""
+    """
+    Extract numerical distribution parameters from a time node.
+    
+    Retrieves all parameters relevant to the node's selected distribution
+    type and converts them to appropriate numeric types.
+    
+    Args:
+        n: The UniversalTimeNode to extract from.
+    
+    Returns:
+        Dictionary with 'type' and numeric parameter fields.
+    """
     dt = n.get_property("type")
     data, mapping = {"type": dt}, {
         "constant": [("Val", "value")],

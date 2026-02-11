@@ -1,83 +1,106 @@
 # JUNEbug
 
-UI tool for [JUNE](https://github.com/IDAS-Durham/JUNE)
+A PyQt5-based GUI for creating and editing disease-stage configurations for the [JUNE](https://github.com/IDAS-Durham/JUNE) epidemiological simulator.
 
-## Overview
+## Installation
 
-JUNEbug is a small PyQt5-based GUI for creating and editing disease-stage configurations for the JUNE simulator. The UI combines a form-based configuration panel with a node-graph editor.
+### 1. Create Virtual Environment
 
-## Quick start
+```bash
+python -m venv .venv
+```
 
-1. Create a new virtualenv
+### 2. Activate Virtual Environment
 
-- Windows:
+**Windows (cmd):**
+```cmd
+.venv\Scripts\activate.bat
+```
 
-  ```cmd
-  python -m venv .venv
-  ```
+**Windows (PowerShell):**
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
 
-- Linux / macOS:
+**Linux / macOS:**
+```bash
+source .venv/bin/activate
+```
 
-  ```bash
-  python3 -m venv .venv
-  ```
+### 3. Install Dependencies
 
-2. Activate the virtualenv
+```bash
+pip install -e .
+```
 
-- Windows (cmd):
+## Running the Application
 
-  ```cmd
-  .venv\Scripts\activate.bat
-  ```
+```bash
+python -m main
+```
 
-- Windows (PowerShell):
+The application opens with a split-panel interface:
+- **Left panel**: Disease configuration (metadata, transmission parameters)
+- **Right panel**: Node graph editor (visual disease trajectory design)
 
-  ```powershell
-  .\.venv\Scripts\Activate.ps1
-  ```
+## Usage
 
-- Linux / macOS:
+### Import a Configuration
 
-  ```bash
-  source .venv/bin/activate
-  ```
+1. File > Import YAML
+2. Select a YAML file (examples in `examples/`)
+3. Configuration loads into both panels
 
-3. Install dependencies
+### Edit Configuration
 
-- Windows (cmd / PowerShell):
+- **Left panel**: Modify disease name, stages, transmission parameters
+- **Right panel**: Right-click to add nodes, drag to connect stages
 
-  ```cmd
-  pip install -e .
-  ```
+### Export Configuration
 
-- Linux / macOS:
+1. File > Export YAML
+2. Choose output location
+3. Edited configuration saved to YAML
 
-  ```bash
-  pip3 install -e .
-  ```
+## Project Structure
 
-4. Run the application from the repository root
+```
+src/
+├── main.py           # Entry point
+├── app.py            # Main window
+├── configPanel.py    # Left panel (forms)
+├── graph.py          # Right panel (graph editor)
+├── yamlLoader.py     # YAML import/export
+└── style/
+    └── theme.qss     # Stylesheet
 
-- Windows:
+examples/              # Example YAML configurations
+tests/                 # Test suite
+```
 
-  ```cmd
-  python -m main
-  ```
+## Documentation
 
-- Linux / macOS:
-
-  ```bash
-  python3 -m main
-  ```
+- **QUICK_REFERENCE.md** - Common tasks and keyboard shortcuts
+- **CODE_ORGANIZATION.md** - Project structure and module details
+- **DEVELOPER_GUIDE.md** - Guide for extending the application
 
 ## Requirements
 
 - Python 3.8+
 - PyQt5
 - NodeGraphQt
+- PyYAML
 
-Dependencies are declared in [pyproject.toml](pyproject.toml).
+See [pyproject.toml](pyproject.toml) for complete dependency list.
+
+## Testing
+
+Run the test suite:
+
+```bash
+pytest tests/
+```
 
 ## License
 
-This project is released under the terms in [LICENSE](LICENSE).
+Released under the terms in [LICENSE](LICENSE).
