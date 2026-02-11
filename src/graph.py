@@ -85,6 +85,16 @@ class UniversalTimeNode(NGQt.BaseNode):
     __identifier__ = "transitions"
     NODE_NAME = "UniversalTimeNode"
 
+    # Visibility map for distribution types (persists across redraws)
+    VISIBILITY_MAP = {
+        "constant": ["Val"],
+        "normal": ["Val", "scale"],
+        "lognormal": ["Val", "scale", "s"],
+        "gamma": ["Val", "scale", "a"],
+        "beta": ["Val", "scale", "a", "b"],
+        "exponweib": ["Val", "scale", "a", "c"],
+    }
+
     def __init__(self):
         """Initializes the node with mathematical distribution parameters."""
         super(UniversalTimeNode, self).__init__()
@@ -100,12 +110,32 @@ class UniversalTimeNode(NGQt.BaseNode):
             items=["constant", "normal", "lognormal", "beta", "gamma", "exponweib"],
         )
 
+        # Only add the base field - others will be added dynamically
         self.add_text_input("Val", "Value/Loc", text="0.0")
         self.add_text_input("scale", "Scale", text="1.0")
         self.add_text_input("a", "a", text="0.0")
         self.add_text_input("b", "b", text="0.0")
         self.add_text_input("c", "c", text="0.0")
         self.add_text_input("s", "s", text="0.0")
+
+        # Hide non-relevant fields by default (constant is default type)
+        self._apply_widget_visibility()
+
+    def _apply_widget_visibility(self):
+        """
+        Apply visibility based on distribution type.
+        Hides or shows input fields directly via setVisible() on the widget wrappers.
+        This is called when type property changes (via onNodePropChanged).
+        """
+        dist_type = self.get_property("type")
+        all_fields = ["Val", "scale", "a", "b", "c", "s"]
+        visible_fields = self.VISIBILITY_MAP.get(dist_type, ["Val"])
+
+        for field in all_fields:
+            widget_wrapper = self.get_widget(field)
+            if widget_wrapper:
+                should_show = field in visible_fields
+                widget_wrapper.setVisible(should_show)
 
 
 class NodeGraphWidget(QtW.QWidget):
@@ -140,6 +170,18 @@ class NodeGraphWidget(QtW.QWidget):
         self.graph.node_created.connect(self.onNodeCreated)
         self.graph.property_changed.connect(self.onNodePropChanged)
 
+        # Hook into graphics view transformation (zoom/pan) to fix visibility immediately
+        # This fires before LOD rendering, preventing visual flicker
+        viewer = self.graph.viewer()
+        if hasattr(viewer, "scale_view") or hasattr(viewer, "transform"):
+            # Connect to the viewer's transformation changed signal if available
+            if hasattr(viewer, "viewport"):
+                # For QGraphicsView, connect to transformation updates
+                viewer.wheelEvent = self._createWheelEventWrapper(viewer.wheelEvent)
+                viewer.mouseMoveEvent = self._createMouseMoveEventWrapper(
+                    viewer.mouseMoveEvent
+                )
+
     def setupContextMenu(self) -> None:
         """
         Initializes the context menus for creating symptom and transition nodes,
@@ -147,7 +189,8 @@ class NodeGraphWidget(QtW.QWidget):
         """
         graph_menu = self.graph.get_context_menu("graph")
 
-        # FIX: Pass all_nodes() to the layout engine to avoid TypeError
+        # Note: auto_layout_nodes uses node bounding rects which include all widgets
+        # even if hidden. NodeGraphQt doesn't expose a way to customize this.
         graph_menu.add_command(
             "Auto Layout", lambda: self.graph.auto_layout_nodes(self.graph.all_nodes())
         )
@@ -208,60 +251,52 @@ class NodeGraphWidget(QtW.QWidget):
 
     def updateNodeVisibility(self, node: UniversalTimeNode) -> None:
         """
-        Hides or shows parameter input fields and their labels based on
-        the selected distribution type to prevent 'ghost parameters'.
+        Updates distribution UI when type dropdown changes.
+        Delegates to node's internal _apply_widget_visibility() which is also
+        called during draw_node() to survive zoom/redraw cycles.
 
         Args:
             node: The UniversalTimeNode to update.
         """
-        dist_type = node.get_property("type")
+        node._apply_widget_visibility()
 
-        # Define which parameters should be visible for each distribution type
-        visibility_map = {
-            "constant": ["Val"],
-            "normal": ["Val", "scale"],
-            "lognormal": ["Val", "scale", "s"],
-            "gamma": ["Val", "scale", "a"],
-            "beta": ["Val", "scale", "a", "b"],
-            "exponweib": ["Val", "scale", "a", "c"],
-        }
-
+        # Recalculate node height based on visible fields
         all_fields = ["Val", "scale", "a", "b", "c", "s"]
-        visible_fields = visibility_map.get(dist_type, ["Val"])
-
-        visible_count = 0
-        for field in all_fields:
-            widget_wrapper = node.get_widget(field)
-            if widget_wrapper:
-                should_show = field in visible_fields
-
-                # 1. Toggle visibility of the wrapper itself
-                widget_wrapper.setVisible(should_show)
-
-                # 2. Correctly call internal widget() and label() methods
-                # This ensures the internal Qt elements are properly hidden
-                try:
-                    # Check for the widget method and call it
-                    if hasattr(widget_wrapper, "widget"):
-                        internal_widget = widget_wrapper.widget()
-                        if internal_widget:
-                            internal_widget.setVisible(should_show)
-
-                    # Check for the label method and call it
-                    if hasattr(widget_wrapper, "label"):
-                        label_widget = widget_wrapper.label()
-                        if label_widget:
-                            label_widget.setVisible(should_show)
-                except Exception:
-                    # Fallback for different NodeGraphQt versions/configurations
-                    pass
-
-                if should_show:
-                    visible_count += 1
-
-        # 3. Recalculate node height to eliminate empty space from hidden parameters
+        visible_count = sum(
+            1
+            for field in all_fields
+            if field in node.VISIBILITY_MAP.get(node.get_property("type"), ["Val"])
+        )
         new_height = 80 + (visible_count * 28)
         node.set_property("height", new_height, push_undo=False)
 
-        # 4. Trigger a refresh to clear visual artifacts
-        node.update()
+    def _fixVisibilityAfterZoom(self) -> None:
+        """
+        Re-apply widget visibility to all UniversalTimeNodes.
+        Called immediately after zoom/pan events to fix visibility before LOD rendering.
+        """
+        for node in self.graph.all_nodes():
+            if isinstance(node, UniversalTimeNode):
+                node._apply_widget_visibility()
+
+    def _createWheelEventWrapper(self, original_wheel_event):
+        """Wrap wheel events (zoom) to fix visibility immediately after."""
+
+        def wrapped_wheel_event(event):
+            result = original_wheel_event(event)
+            QtCore.QTimer.singleShot(0, self._fixVisibilityAfterZoom)
+            return result
+
+        return wrapped_wheel_event
+
+    def _createMouseMoveEventWrapper(self, original_mouse_move_event):
+        """Wrap mouse move events (pan/drag) to fix visibility if transform changed."""
+
+        def wrapped_mouse_move_event(event):
+            result = original_mouse_move_event(event)
+            # Only fix visibility if we're in a pan/drag operation
+            if event.buttons():
+                QtCore.QTimer.singleShot(0, self._fixVisibilityAfterZoom)
+            return result
+
+        return wrapped_mouse_move_event
