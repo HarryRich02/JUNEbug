@@ -163,12 +163,13 @@ def updateGraph(widget: Any, disease: Dict[str, Any]) -> None:
 
     QtWidgets.QApplication.processEvents()
     try:
-        # FIX: Explicitly pass the list of nodes
+        # FIX: Explicitly pass the list of nodes to prevent TypeError in layout engine
         graph.auto_layout_nodes(graph.all_nodes())
         graph.fit_to_selection()
     except Exception as e:
         log(f"Auto-Layout failed: {e}")
 
+    # Delay final visibility check to ensure nodes are physically placed correctly
     QtCore.QTimer.singleShot(200, lambda: finalizeVisibility(widget))
 
 

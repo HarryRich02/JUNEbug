@@ -11,7 +11,7 @@ class MainWindow(QtW.QMainWindow):
     def __init__(self):
         """Initializes UI components."""
         super().__init__()
-        self.setWindowTitle("JUNEbug - pandemic-config-gui")
+        self.setWindowTitle("JUNEbug")
         self.resize(1280, 720)
         self.splitter = QtW.QSplitter(Qt.Horizontal)
         self.left_panel = configPanel.DiseaseConfigWidget()
